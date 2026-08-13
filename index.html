@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Searcher</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <nav class="navbar">
+      <img src="./assets/LogoMovie.jpg" alt="Movie Searcher Logo" class="logo">
+    </nav>
+    <div class="hero-content">
+      <h1>Find your movie</h1>
+      <form class="search-form" id="searchForm">
+         <input type="text" id="searchInput" placeholder="Search by title"/>
+         <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+<main>
+   <div class="controls">
+    <label for="sortSelect">Sort by:</label>
+    <select id="sortSelect">
+      <option value="title-asc">Title (A–Z)</option>
+      <option value="title-desc">Title (Z–A)</option>
+      <option value="year-desc">Newest first</option>
+      <option value="year-asc">Oldest first</option>
+    </select>
+  </div>
+  <div class="movie-list" id="movieList"> </div>
+
+</main>  
+<footer>
+  <p>&copy; 2026 Movie Searcher. All rights reserved. Built by Shilly Riser</p>
+
+</body>
+</html>
