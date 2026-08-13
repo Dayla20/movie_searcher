@@ -122,3 +122,35 @@ footer {
     padding: 15px 20px;
   }
 }
+.movie-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+}
+
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-card__info {
+  padding: 12px;
+}
+
+.movie-card__info h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.movie-card__info p {
+  color: #666;
+  font-size: 0.9rem;
+}
