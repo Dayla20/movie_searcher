@@ -154,3 +154,29 @@ footer {
   color: #666;
   font-size: 0.9rem;
 }
+.skeleton-img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #e0e0e0;
+}
+
+.skeleton-text {
+  height: 14px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton .skeleton-img,
+.skeleton .skeleton-text {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
