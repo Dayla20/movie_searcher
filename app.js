@@ -2,11 +2,17 @@ const API_KEY = "66e99457"; // your key
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 const movieListEl = document.querySelector("#movieList");
+const sortSelect = document.querySelector("#sortSelect");
+let currentMovies = [];
 
 searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const query = searchInput.value;
   searchMovies(query);
+});
+
+sortSelect.addEventListener("change", () => {
+  renderSortedMovies();
 });
 
 async function searchMovies(query) {
@@ -17,11 +23,25 @@ async function searchMovies(query) {
 
   if (data.Response === "False") {
     movieListEl.innerHTML = `<p>${data.Error}</p>`;
+    currentMovies = [];
     return;
   }
 
-  const firstSix = data.Search.slice(0, 6);
-  movieListEl.innerHTML = firstSix.map(movie => movieHTML(movie)).join("");
+  currentMovies = data.Search.slice(0, 6);
+  renderSortedMovies();
+}
+
+function renderSortedMovies() {
+  const sortValue = sortSelect.value;
+
+  const sorted = [...currentMovies].sort((a, b) => {
+    if (sortValue === "title-asc") return a.Title.localeCompare(b.Title);
+    if (sortValue === "title-desc") return b.Title.localeCompare(a.Title);
+    if (sortValue === "year-desc") return parseInt(b.Year) - parseInt(a.Year);
+    if (sortValue === "year-asc") return parseInt(a.Year) - parseInt(b.Year);
+  });
+
+  movieListEl.innerHTML = sorted.map(movie => movieHTML(movie)).join("");
 }
 
 function showSkeletons() {
@@ -50,37 +70,4 @@ function movieHTML(movie) {
       </div>
     </div>
   `;
-}
-let currentMovies = [];
-const sortSelect = document.querySelector("#sortSelect");
-async function searchMovies(query) {
-  showSkeletons();
-
-  const response = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
-  const data = await response.json();
-
-  if (data.Response === "False") {
-    movieListEl.innerHTML = `<p>${data.Error}</p>`;
-    currentMovies = [];
-    return;
-  }
-
-  currentMovies = data.Search.slice(0, 6);
-  renderSortedMovies();
-}
-sortSelect.addEventListener("change", () => {
-  renderSortedMovies();
-});
-
-function renderSortedMovies() {
-  const sortValue = sortSelect.value;
-
-  const sorted = [...currentMovies].sort((a, b) => {
-    if (sortValue === "title-asc") return a.Title.localeCompare(b.Title);
-    if (sortValue === "title-desc") return b.Title.localeCompare(a.Title);
-    if (sortValue === "year-desc") return parseInt(b.Year) - parseInt(a.Year);
-    if (sortValue === "year-asc") return parseInt(a.Year) - parseInt(b.Year);
-  });
-
-  movieListEl.innerHTML = sorted.map(movie => movieHTML(movie)).join("");
 }
